@@ -1,0 +1,52 @@
+For this you will need a raspberry pi and a USB ethernet adapter.
+All lines with # are commands. 
+
+You will need to make sure that a few prerequisits are installed:
+
+Apache and PHP
+
+#sudo apt-get update
+#sudo apt-get upgrade
+#sudo apt-get autoremove
+
+REBOOT Pi
+#sudo reload
+
+#sudo apt-get -y install apache2 libapache2-mod-php
+
+Go to your Pi IP and make sure you get the default page.
+
+Now go to /var/www/html and remove the index.html file
+#sudo rm index.html
+
+Make an index.php file and make sure PHP works
+#sudo nano index.php
+
+In the file put 
+<?
+phpinfo();
+?>
+
+Now go to Pi IP
+
+Copy the web files directory to /var/www/html
+
+Now we need to give the current user (pi) permission to use TCPDump
+
+#sudo groupadd pcap
+#sudo usermod -a -G pcap pi
+#sudo chgrp pcap /usr/sbin/tcpdump
+#sudo chmod 750 /usr/sbin/tcpdump
+#sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+
+Now if you open your browser and navigate to pi IP you should get two buttons. Start and Stop.
+
+Click on start 
+
+Wait a few seconds and then click on Stop
+
+Click on the link to go to FileList
+
+You should see a PCAP file in there. 
+
+Click on the PCAP file to download and analyse with wireshark.
